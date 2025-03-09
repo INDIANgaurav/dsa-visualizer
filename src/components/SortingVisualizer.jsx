@@ -15,7 +15,10 @@ const SortingVisualizer = () => {
 
   const resetArray = () => {
     if (sorting) return;
-    const newArray = Array.from({ length: arraySize }, () => Math.floor(Math.random() * 100) + 10);
+    const newArray = Array.from(
+      { length: arraySize },
+      () => Math.floor(Math.random() * 100) + 10
+    );
     setArray(newArray);
   };
 
@@ -101,44 +104,65 @@ const SortingVisualizer = () => {
 
   return (
     <div className="sorting-visualizer">
-      <h2>Sorting Visualizer</h2>
-      <div className="controls">
-        <label>Array Size: </label>
-        <select  className="array-size" value={arraySize} onChange={(e) => setArraySize(Number(e.target.value))} disabled={sorting}>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-          <option value="40">40</option>
-        </select>
-        <label>Speed: </label>
-        <select className="algo-speed" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} disabled={sorting}>
-          <option value="200">Slow</option>
-          <option value="100">Medium</option>
-          <option value="50">Fast</option>
-        </select>
-        <label>Algorithm: </label>
-        <select className="sorting-algo" value={algorithm} onChange={(e) => setAlgorithm(e.target.value)} disabled={sorting}>
-          <option value="bubble">Bubble Sort</option>
-          <option value="selection">Selection Sort</option>
-          <option value="insertion">Insertion Sort</option>
-          <option value="quick">Quick Sort</option>
-        </select>
-      </div>
-      <div className="array-container">
-        {array.map((value, idx) => (
-          <motion.div
-            key={idx}
-            className="array-bar"
-            animate={{ height: value * 3 }}
-            transition={{ duration: 0.2 }}
-            style={{ height: `${value * 3}px` }}
+      <div>
+        <h2>Sorting Visualizer</h2>
+        <div className="controls">
+          <label>Array Size: </label>
+          <select
+            className="array-size"
+            value={arraySize}
+            onChange={(e) => setArraySize(Number(e.target.value))}
+            disabled={sorting}
           >
-            <span className="bar-text">{value}</span>
-          </motion.div>
-        ))}
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+          </select>
+          <label>Speed: </label>
+          <select
+            className="algo-speed"
+            value={speed}
+            onChange={(e) => setSpeed(Number(e.target.value))}
+            disabled={sorting}
+          >
+            <option value="200">Slow</option>
+            <option value="100">Medium</option>
+            <option value="50">Fast</option>
+          </select>
+          <label>Algorithm: </label>
+          <select
+            className="sorting-algo"
+            value={algorithm}
+            onChange={(e) => setAlgorithm(e.target.value)}
+            disabled={sorting}
+          >
+            <option value="bubble">Bubble Sort</option>
+            <option value="selection">Selection Sort</option>
+            <option value="insertion">Insertion Sort</option>
+            <option value="quick">Quick Sort</option>
+          </select>
+        </div>
+        <div className="array-container">
+          {array.map((value, idx) => (
+            <motion.div
+              key={idx}
+              className="array-bar"
+              animate={{ height: value * 3 }}
+              transition={{ duration: 0.2 }}
+              style={{ height: `${value * 3}px` }}
+            >
+              <span className="bar-text">{value}</span>
+            </motion.div>
+          ))}
+        </div>
+        <button onClick={resetArray} disabled={sorting}>
+          Reset Array
+        </button>
+        <button onClick={startSorting} disabled={sorting}>
+          Start Sorting
+        </button>
       </div>
-      <button onClick={resetArray} disabled={sorting}>Reset Array</button>
-      <button onClick={startSorting} disabled={sorting}>Start Sorting</button>
     </div>
   );
 };
